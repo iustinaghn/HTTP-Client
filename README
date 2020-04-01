@@ -1,0 +1,116 @@
+==============================	TEMA 3 - PC  ==============================
+
+Nume :  Ghenea Iustina
+Grupa : 322 CC
+
+client.c
+==============================	TASK 1  ===================================
+
+S-a trimis un mesaj cu textul NULL catre server, si s-a construit un mesaj GET
+cu url-ul /task1/start.
+
+In cadrul acestui task, am prelucrat string-ul pentru a obtine cele 2 cookie-uri.
+Acestea au fost puse intr-un mesaj de forma "name1=value1; name2=value2".
+
+Apoi, se selecteaza din string-ul primit de la server, doar mesajul json.
+Din acesta, se extrag : url-ul, metoda si tipul.
+In campul data al mesajului json, se afla un alt mesaj de tip json.
+De aici se extrag : username-ul si parola.
+
+Se consturieste mesajul de forma "username=$user&password=$pass".
+
+In functie de metoda citita din textul json, se va construi un mesaj GET sau POST.
+
+==============================	TASK 2  ===================================
+
+In cadrul acestui task s-a trimis mesajul prelucrat la task-ul precedent catre server.
+Conform cu metoda identificata precedent, s-a construit un mesaj POST.
+
+Se obtin noile cookie-uri (in numar de 2). Acestea au fost puse intr-un mesaj de forma 
+"name1=value1; name2=value2".
+
+Apoi, se selecteaza din string-ul primit de la server, doar mesajul json.
+Din acesta se extrag : url-ul si metoda.
+Din textul json incorporat in primul mesaj json, se extrage token-ul.
+Iar din urmatorul text json incorporat in al doilea, se extrage id-ul.
+
+Se construieste mesajul de forma "raspuns1=$r1&raspuns2=$r2&id=$ID".
+
+In functie de metoda citita din textul json, se va construi un mesaj GET sau POST.
+
+============================== TASK 3  =====================================
+
+In cadrul acestui task s-a trimis mesajul prelucrat la task-ul precedent catre server.
+Conform cu metoda identificata precedent, s-a construit un mesaj GET.
+
+Se obtin noile cookie-uri (in numar de 2). Acestea au fost puse intr-un mesaj de forma 
+"name1=value1; name2=value2".
+
+Apoi, se selecteaza din string-ul primit de la server, doar mesajul json.
+Din acesta se extrag : url-ul si metoda.
+
+De aceasta data, mesajul trimis catre server este NULL.
+
+In functie de metoda citita din textul json, se va construi un mesaj GET sau POST.
+
+==============================  TASK 4  =====================================
+
+In cadrul acestui task s-a trimis mesajul prelucrat la task-ul precedent catre server.
+Conform cu metoda identificata precedent, s-a construit un mesaj GET.
+
+Se obtin noile cookie-uri (in numar de 2). Acestea au fost puse intr-un mesaj de forma 
+"name1=value1; name2=value2".
+
+Apoi, se selecteaza din string-ul primit de la server, doar mesajul json.
+Din acesta se extrag : url-ul, metoda si tipul pentru mesajul POST.
+Din textul json incorporat in primul mesaj json, se extrage token-ul.
+Iar din urmatorul text json incorporat in al doilea, se extrage url-ul pt mesajul GET.
+Si din urmatorul text json incorporat in al treilea, se extrag : q si APPID.
+
+Url-ul pentru mesajul GET este prelucat, astfel incat sa se poata afla adresa ip.
+Se foloseste functia getaddrinfo().
+
+Se construieste mesajul de forma "$url?q=$Q&APPID=$appid".
+
+Se foloseste o structura sockaddr_in pentr a obtine adresa ip sub forma de string.
+Se afla portul pe care se va trimite mesajul, folosind ntohs().
+
+==============================  TASK 5  ======================================
+
+In cadrul acestui task s-a trimis mesajul prelucrat la task-ul precedent catre server.
+Se deschide conexiunea cu adresa ip si portul aflate la task-ul precedent.
+Conform cu a doua metoda identificata precedent, s-a construit un mesaj GET.
+
+Raspunsul de la server este prelucrat, pentru a obtine ultimul mesaj json.
+Acesta este folosit in construirea mesajului POST.
+
+
+
+
+================================================================================
+
+
+
+requests.c
+
+===========================  compute_get_request() =============================
+
+Se construieste mesajul:
+
+GET $url[?$url_params]
+Host: $host
+[Authorization : Basic $token]
+[Cookie : $cookies]
+
+==========================  compute_post_request() =============================
+
+Se construieste mesajul:
+
+POST $url HTTP/1.1
+Host: $host
+Content-Type : $content
+Content-Length: $length
+[Authorization: Basic $token]
+[Cookie : $cookies]
+
+
